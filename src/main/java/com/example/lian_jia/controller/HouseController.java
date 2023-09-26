@@ -4,6 +4,7 @@ package com.example.lian_jia.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.lian_jia.entity.House;
+import com.example.lian_jia.entity.StandChartsForm;
 import com.example.lian_jia.result.R;
 import com.example.lian_jia.service.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class HouseController {
     @PostMapping("/update")
     public R<String> update(@RequestBody House house) {
         System.out.println("update中的house" + house);
-        if (house.getId() == null || house.getReferencePrice() == null || house.getReferencePrice().equals(" ")) {
+        if (house.getId() == null) {
             return R.error("请输入正确的参数");
         }
         houseService.updateById(house);
@@ -57,6 +58,31 @@ public class HouseController {
         }
         boolean isUpdate = houseService.removeById(house);
         return isUpdate ? R.success("删除成功") : R.error("删除失败");
+    }
+
+    @GetMapping("/chart1")
+    public R<List<StandChartsForm>> getCharts1() {
+        List<StandChartsForm> list = houseService.listChart1();
+        System.out.println(list);
+        return R.success(list);
+    }
+    @GetMapping("/chart2")
+    public R<List<StandChartsForm>> getCharts2() {
+        List<StandChartsForm> list = houseService.listChart2();
+        System.out.println(list);
+        return R.success(list);
+    }
+    @GetMapping("/chart3")
+    public R<List<StandChartsForm>> getCharts3() {
+        List<StandChartsForm> list = houseService.listChart3();
+        System.out.println(list);
+        return R.success(list);
+    }
+    @GetMapping("/chart4")
+    public R<List<StandChartsForm>> getCharts4() {
+        List<StandChartsForm> list = houseService.listChart4();
+        System.out.println(list);
+        return R.success(list);
     }
 
 }
